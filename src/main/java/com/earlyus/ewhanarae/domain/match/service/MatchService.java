@@ -51,16 +51,9 @@ public class MatchService {
       - 5순위 : 시간 X → 대기자
     * */
     public CourseMatchResponses findCourseResult(MatchRequest matchRequest) {
-        /*List<DisabledCourse> disabledCourses = disabledCourseRepository.findAll()
-                .stream().filter(d -> new HashSet<>(matchRequest.getClassTimeList()).containsAll(d.getClassTimes()))
-                .toList();
-        */
-        List<String> available = matchRequest.getClassTimeList()
-                .stream().map(ClassTime::getTime).toList();
         List<DisabledCourse> disabledCourses = disabledCourseRepository.findAll()
                 .stream().filter(d -> {
-                    List<String> needed = d.getClassTimes().stream().map(ClassTime::getTime).toList();
-                    return new HashSet<>(available).containsAll(needed);
+                    return new HashSet<>(matchRequest.getClassTimeList()).containsAll(d.getClassTimes());
                 })
                 .toList();
 

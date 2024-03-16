@@ -13,12 +13,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class MatchRequest {
-    private String name;
-    private String studentNo;
-    //private String college; //단과대학
-    //private String faculty; //학부
     private String major; //전공
-    private List<DoubleMajor> doubleMajorList; //부/복수전공
+    private List<String> doubleMajorList; //부/복수전공
     private HelpType helpType; //도움 유형
     private List<ClassTime> classTimeList; //가능한 시간
 }
