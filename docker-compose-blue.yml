@@ -1,0 +1,8 @@
+#blue
+version: '3'
+services:
+  earlyus-api:
+    build: .
+    ports:
+      - "8083:8080"
+    container_name: early-us-blue
