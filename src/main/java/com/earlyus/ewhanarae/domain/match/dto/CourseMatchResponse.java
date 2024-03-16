@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -21,13 +22,14 @@ public class CourseMatchResponse {
     private String courseName; //교과목명
     private String professor; //교수명
     private String credit; //학점
+    private String duration; //시간
     private String classRoom; //교실
     private String major; //전공
-    private Boolean noteTaking; //필기, 속타, 이동, 팀플
-    private Boolean speedType; //속타
-    private Boolean textBook; //교재 제작
-    private Boolean mobility; //이동
-    private ArrayList<ClassTime> classTimes; //수업 시간
+    private Long noteTaking; //필기, 속타, 이동, 팀플
+    private Long speedType; //속타
+    private Long textBook; //교재 제작
+    private Long mobility; //이동
+    private List<ClassTime> classTimes; //수업 시간
 
     public CourseMatchResponse(DisabledCourse disabledCourse){
         this.disabilityType = disabledCourse.getDisabilityType();
@@ -37,6 +39,7 @@ public class CourseMatchResponse {
         this.courseName = disabledCourse.getCourseName();
         this.professor = disabledCourse.getProfessor();
         this.credit = disabledCourse.getCredit();
+        this.duration = disabledCourse.getDuration();
         this.classRoom = disabledCourse.getClassRoom();
         this.major = disabledCourse.getMajor();
         this.noteTaking = disabledCourse.getNoteTaking();

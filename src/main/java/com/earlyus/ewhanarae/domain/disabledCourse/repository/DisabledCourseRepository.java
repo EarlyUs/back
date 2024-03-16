@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface DisabledCourseRepository extends JpaRepository<DisabledCourse, Long> {
-    Optional<DisabledCourse> findById(Integer id);
     Optional<DisabledCourse> findByMajor(String major);
 }
 

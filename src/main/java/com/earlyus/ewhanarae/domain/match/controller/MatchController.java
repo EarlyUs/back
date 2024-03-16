@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/match")
 @RequiredArgsConstructor
-public class DisabledCourseController{
+public class MatchController {
     private final MatchService matchService;
 
     @PostMapping("/wing")

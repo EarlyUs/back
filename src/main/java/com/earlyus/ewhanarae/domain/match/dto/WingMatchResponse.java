@@ -13,11 +13,13 @@ public class WingMatchResponse {
     //날개 이름, 설명, 이미지
     private String name;
     private String description;
+    private String detailDescription;
     private String img;
 
     public WingMatchResponse(Wing wing){
         this.name = wing.getName();
         this.description = wing.getDescription();
+        this.detailDescription = wing.getDetailDescription();
         this.img = wing.getImg();
     }
 }
