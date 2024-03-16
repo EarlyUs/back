@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Builder
 public class CourseMatchResponse {
     private DisabilityType disabilityType; //장애 유형(자폐성, 시각, 청각, 지체)
     private DisabilityLevelType disabilityLevel; //장애 급수(중증, 경증)
@@ -29,7 +28,7 @@ public class CourseMatchResponse {
     private Long speedType; //속타
     private Long textBook; //교재 제작
     private Long mobility; //이동
-    private List<ClassTime> classTimes; //수업 시간
+    private List<String> classTimeList; //수업 시간
 
     public CourseMatchResponse(DisabledCourse disabledCourse){
         this.disabilityType = disabledCourse.getDisabilityType();
@@ -46,6 +45,6 @@ public class CourseMatchResponse {
         this.speedType = disabledCourse.getSpeedType();
         this.textBook = disabledCourse.getTextBook();
         this.mobility = disabledCourse.getMobility();
-        this.classTimes = disabledCourse.getClassTimes();
+        this.classTimeList = disabledCourse.getClassTimes().stream().map(ClassTime::getTime).toList();
     }
 }
