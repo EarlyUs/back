@@ -89,9 +89,8 @@ class MatchServiceTest {
     }
 
     private CourseMatchResponses courseMatchResponses() {
-        CourseMatchResponse courseMatchResponse = new CourseMatchResponse(disabledCourse());
         List<CourseMatchResponse> courseMatchResponses = new ArrayList<>();
-        courseMatchResponses.add(courseMatchResponse);
+        courseMatchResponses.add(new CourseMatchResponse(disabledCourse()));
         return new CourseMatchResponses(courseMatchResponses);
     }
 

@@ -1,13 +1,5 @@
 package com.earlyus.ewhanarae.domain.match.controller;
 
-/*
-- 1순위 : 시간 O 전공 O 도움 유형 O → 신청 가능자
-- 2순위 : 시간 O 전공 O 도움 유형 X → 신청 가능자
-- 3순위 : 시간 O 전공 X 도움 유형 O → 신청 가능자
-- 4순위 : 시간 O 전공 X 도움 유형 X → 신청 가능자
-- 5순위 : 시간 X → 대기자
-* */
-
 import com.earlyus.ewhanarae.domain.match.dto.CourseMatchResponses;
 import com.earlyus.ewhanarae.domain.match.dto.MatchRequest;
 import com.earlyus.ewhanarae.domain.match.dto.WingMatchResponse;
