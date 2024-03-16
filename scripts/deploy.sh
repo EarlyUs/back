@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ubuntu/app
+cd /home/ubuntu/earlyus
 
 DOCKER_APP_NAME=earlyus
 
