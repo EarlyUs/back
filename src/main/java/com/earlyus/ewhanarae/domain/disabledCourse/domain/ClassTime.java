@@ -17,6 +17,7 @@ public class ClassTime {
     @Id
     @Column(name="time_id")
     private String time; //월1 ~ 금7
+
     @ManyToMany(mappedBy = "classTimes", fetch = FetchType.LAZY)
     private List<DisabledCourse> disabledCourses;
 
@@ -31,11 +32,5 @@ public class ClassTime {
     @Override
     public int hashCode() {
         return Objects.hash(time);
-    }
-
-    @Override
-    public String toString() {
-        return "ClassTime{" +
-                "time='" + time + '\'' ;
     }
 }

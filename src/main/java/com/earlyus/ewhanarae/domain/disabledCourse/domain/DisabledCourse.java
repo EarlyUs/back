@@ -17,10 +17,13 @@ public class DisabledCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
     private Integer id;
+
     @Enumerated(EnumType.STRING)
     private DisabilityType disabilityType; //장애 유형(자폐성, 시각, 청각, 지체)
+
     @Enumerated(EnumType.STRING)
     private DisabilityLevelType disabilityLevel; //장애 급수(중증, 경증)
+
     private String courseNumber; //학수번호
     private String courseDivision; //분반
     private String courseName; //교과목명
