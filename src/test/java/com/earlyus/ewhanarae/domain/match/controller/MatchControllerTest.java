@@ -65,8 +65,32 @@ class MatchControllerTest {
         );
 
         //then
-        MvcResult mvcResult = resultActions.andExpect(status().isOk())
+        resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("courseMatchResponses", response.getCourseMatchResponses()).exists())
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("도우미 날개 유형 성공")
+    public void findHelperWingTypeSuccess() throws Exception {
+        //given
+        MatchRequest request = matchRequest();
+        WingMatchResponse response = wingMatchResponse();
+
+        doReturn(response).when(matchService).findWingResult(any(MatchRequest.class));
+
+        //when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.post("/match/wing")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new Gson().toJson(request))
+        );
+
+        //then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("name", response.getName()).exists())
+                .andExpect(jsonPath("description", response.getDescription()).exists())
+                .andExpect(jsonPath("detailDescription", response.getDetailDescription()).exists())
                 .andReturn();
     }
 
