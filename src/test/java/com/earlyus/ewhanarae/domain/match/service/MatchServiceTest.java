@@ -6,9 +6,11 @@ import com.earlyus.ewhanarae.domain.disabledCourse.domain.DisabilityType;
 import com.earlyus.ewhanarae.domain.disabledCourse.domain.DisabledCourse;
 import com.earlyus.ewhanarae.domain.disabledCourse.repository.DisabledCourseRepository;
 import com.earlyus.ewhanarae.domain.match.domain.HelpType;
+import com.earlyus.ewhanarae.domain.match.domain.Wing;
 import com.earlyus.ewhanarae.domain.match.dto.CourseMatchResponse;
 import com.earlyus.ewhanarae.domain.match.dto.CourseMatchResponses;
 import com.earlyus.ewhanarae.domain.match.dto.MatchRequest;
+import com.earlyus.ewhanarae.domain.match.dto.WingMatchResponse;
 import com.earlyus.ewhanarae.domain.match.repository.WingRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,15 +64,45 @@ class MatchServiceTest {
         }
     }
 
+    @Test
+    @DisplayName("도우미 날개 유형 성공")
+    public void findHelperWingTypeSuccess() {
+        //given
+        MatchRequest matchRequest = matchRequest();
+        WingMatchResponse wingMatchResponse = wingMatchResponse();
+        Optional<DisabledCourse> disabledCourse = Optional.empty();
+
+        //mocking
+        given(wingRepository.findAll()).willReturn(wingList());
+        given(disabledCourseRepository.findByMajor(any())).willReturn(disabledCourse);
+
+        //when
+        WingMatchResponse result = matchService.findWingResult(matchRequest);
+
+        //then
+        assertEquals(result.getName(), wingMatchResponse.getName());
+        assertEquals(result.getDescription(), wingMatchResponse.getDescription());
+    }
+
     private MatchRequest matchRequest() {
         return new MatchRequest("사회과교육", doubleMajorList(), HelpType.NOTETAKING, classTimeList());
     }
 
     private CourseMatchResponses courseMatchResponses() {
-        CourseMatchResponse courseMatchResponse = new CourseMatchResponse(disabledCourse());
         List<CourseMatchResponse> courseMatchResponses = new ArrayList<>();
-        courseMatchResponses.add(courseMatchResponse);
+        courseMatchResponses.add(new CourseMatchResponse(disabledCourse()));
         return new CourseMatchResponses(courseMatchResponses);
+    }
+
+    private WingMatchResponse wingMatchResponse() {
+        return new WingMatchResponse("유형1", "유형 설명1", "유형 상세 설명", "이미지");
+    }
+
+    private List<Wing> wingList() {
+        List<Wing> wingList = new ArrayList<>();
+        wingList.add(new Wing(1L, 0L, HelpType.NOTETAKING, "유형1", "유형 설명1", "유형 상세 설명", "이미지"));
+        wingList.add(new Wing(2L, 1L, HelpType.NOTETAKING, "유형2", "유형 설명2", "유형 상세 설명", "이미지"));
+        return wingList;
     }
 
     private List<String> doubleMajorList() {
