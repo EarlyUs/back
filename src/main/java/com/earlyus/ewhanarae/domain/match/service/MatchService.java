@@ -1,6 +1,5 @@
 package com.earlyus.ewhanarae.domain.match.service;
 
-import com.earlyus.ewhanarae.domain.disabledCourse.domain.ClassTime;
 import com.earlyus.ewhanarae.domain.disabledCourse.domain.DisabledCourse;
 import com.earlyus.ewhanarae.domain.disabledCourse.repository.DisabledCourseRepository;
 import com.earlyus.ewhanarae.domain.match.domain.Wing;
@@ -15,11 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

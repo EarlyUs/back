@@ -12,6 +12,8 @@ import com.earlyus.ewhanarae.domain.match.dto.CourseMatchResponses;
 import com.earlyus.ewhanarae.domain.match.dto.MatchRequest;
 import com.earlyus.ewhanarae.domain.match.dto.WingMatchResponse;
 import com.earlyus.ewhanarae.domain.match.repository.WingRepository;
+import com.earlyus.ewhanarae.global.exception.CustomException;
+import com.earlyus.ewhanarae.global.exception.ErrorCode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -84,8 +87,38 @@ class MatchServiceTest {
         assertEquals(result.getDescription(), wingMatchResponse.getDescription());
     }
 
+/*    Long majorMatched = disabledCourseRepository.findByMajor(matchRequest.getMajor()).isPresent() ? 1L : 0L;
+    List<Wing> wingMatchResponses = wingRepository.findAll().stream()
+            .filter(w -> w.getMajorMatch().equals(majorMatched) && w.getHelpType().equals(matchRequest.getHelpType()))
+            .toList();
+
+        if(wingMatchResponses.isEmpty()){
+        throw new CustomException(ErrorCode.WING_NOT_FOUND);
+    }
+
+        return new WingMatchResponse(wingMatchResponses.get(0));*/
+
+    @Test
+    @DisplayName("일치하는 날개 없는 경우 테스트")
+    public void wingMatchEmptyTest() {
+        //given
+        MatchRequest matchRequest = emptyMatchRequest();
+        Optional<DisabledCourse> disabledCourse = Optional.empty();
+
+        //mocking
+        given(wingRepository.findAll()).willReturn(wingList());
+        given(disabledCourseRepository.findByMajor(any())).willReturn(Optional.empty());
+
+        //then
+        assertThrows(CustomException.class, () -> matchService.findWingResult(matchRequest));
+    }
+
     private MatchRequest matchRequest() {
         return new MatchRequest("사회과교육", doubleMajorList(), HelpType.NOTETAKING, classTimeList());
+    }
+
+    private MatchRequest emptyMatchRequest() {
+        return new MatchRequest("존재하지 않는 전공", doubleMajorList(), HelpType.SPEEDTYPE, classTimeList());
     }
 
     private CourseMatchResponses courseMatchResponses() {
