@@ -5,6 +5,7 @@ EarlyUs 백엔드 레포지토리
 [https://doumbaeum.careersconnect.net/](https://doumbaeum.careersconnect.net/)
 
 <br>
+
 ## 🎲 백엔드 관여 주요 기능
 ### 장애 학생 수업 매칭 기능
 - 도우미 희망자가 활동 가능하다고 선택한 시간에 장애 학생의 수업 시간이 모두 포함되는 경우, 활동 가능한 수업으로 매칭
