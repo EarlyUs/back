@@ -1,8 +1,8 @@
 # back
 EarlyUs 백엔드 레포지토리
 
-## 배포 링크
-[https://doumbaeum.careersconnect.net/](https://doumbaeum.careersconnect.net/)
+## 배포 링크 
+[https://doumbaeum.careersconnect.net/](https://doumbaeum.careersconnect.net/)  
 [https://earlyus-front.vercel.app/](https://earlyus-front.vercel.app/)
 
 <br>
