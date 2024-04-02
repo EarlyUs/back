@@ -1,5 +1,6 @@
 package com.earlyus.ewhanarae.domain.disabledCourse.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class ClassTime {
     private String time; //월1 ~ 금7
 
     @ManyToMany(mappedBy = "classTimes", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<DisabledCourse> disabledCourses;
 
     @Override
