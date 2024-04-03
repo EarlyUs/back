@@ -87,23 +87,11 @@ class MatchServiceTest {
         assertEquals(result.getDescription(), wingMatchResponse.getDescription());
     }
 
-/*    Long majorMatched = disabledCourseRepository.findByMajor(matchRequest.getMajor()).isPresent() ? 1L : 0L;
-    List<Wing> wingMatchResponses = wingRepository.findAll().stream()
-            .filter(w -> w.getMajorMatch().equals(majorMatched) && w.getHelpType().equals(matchRequest.getHelpType()))
-            .toList();
-
-        if(wingMatchResponses.isEmpty()){
-        throw new CustomException(ErrorCode.WING_NOT_FOUND);
-    }
-
-        return new WingMatchResponse(wingMatchResponses.get(0));*/
-
     @Test
     @DisplayName("일치하는 날개 없는 경우 테스트")
     public void wingMatchEmptyTest() {
         //given
         MatchRequest matchRequest = emptyMatchRequest();
-        Optional<DisabledCourse> disabledCourse = Optional.empty();
 
         //mocking
         given(wingRepository.findAll()).willReturn(wingList());
@@ -112,6 +100,21 @@ class MatchServiceTest {
         //then
         assertThrows(CustomException.class, () -> matchService.findWingResult(matchRequest));
     }
+
+    @Test
+    @DisplayName("매칭되는 수강 과목 필터링 테스트")
+    public void matchCourseFilteringTest() {
+        //given
+        MatchRequest matchRequest = matchRequest();
+        List<DisabledCourse> disabledCourseList = disabledCourseList();
+
+        //when
+        given(disabledCourseRepository.findAll()).willReturn(disabledCourseList);
+
+        //then
+        assertEquals(matchService.filterMatchCourses(matchRequest), disabledCourseList);
+    }
+
 
     private MatchRequest matchRequest() {
         return new MatchRequest("사회과교육", doubleMajorList(), HelpType.NOTETAKING, classTimeList());
