@@ -115,6 +115,20 @@ class MatchServiceTest {
         assertEquals(matchService.filterMatchCourses(matchRequest), disabledCourseList);
     }
 
+    @Test
+    @DisplayName("매칭되는 수강 과목 없는 경우 테스트")
+    public void courseMatchEmptyTest() {
+        //given
+        MatchRequest matchRequest = new MatchRequest("사회과교육", doubleMajorList(), HelpType.NOTETAKING, noMatchClassTimeList());
+        List<DisabledCourse> disabledCourseList = disabledCourseList();
+
+        //when
+        given(disabledCourseRepository.findAll()).willReturn(disabledCourseList);
+
+        //then
+        assertThrows(CustomException.class, () -> matchService.findCourseResult(matchRequest));
+    }
+
 
     private MatchRequest matchRequest() {
         return new MatchRequest("사회과교육", doubleMajorList(), HelpType.NOTETAKING, classTimeList());
@@ -152,6 +166,13 @@ class MatchServiceTest {
         List<ClassTime> classTimeList = new ArrayList<>();
         classTimeList.add(new ClassTime("화4", null));
         classTimeList.add(new ClassTime("화5", null));
+        return classTimeList;
+    }
+
+    private List<ClassTime> noMatchClassTimeList() {
+        List<ClassTime> classTimeList = new ArrayList<>();
+        classTimeList.add(new ClassTime("없는 요일", null));
+        classTimeList.add(new ClassTime("없는 요일", null));
         return classTimeList;
     }
 
