@@ -46,16 +46,19 @@ public class MatchService {
       - 4순위 : 시간 O 전공 X 도움 유형 X → 신청 가능자
       - 5순위 : 시간 X → 대기자
     * */
-    public CourseMatchResponses findCourseResult(MatchRequest matchRequest) {
-        List<DisabledCourse> disabledCourses = disabledCourseRepository.findAll()
-                .stream().filter(d -> {
-                    return new HashSet<>(matchRequest.getClassTimeList()).containsAll(d.getClassTimes());
-                })
-                .toList();
 
-        if(disabledCourses.isEmpty()){
+    public List<DisabledCourse> filterMatchCourses(MatchRequest matchRequest) {
+        return disabledCourseRepository.findAll().stream()
+                .filter(d -> new HashSet<>(matchRequest.getClassTimeList()).containsAll(d.getClassTimes()))
+                .toList();
+    }
+
+    public CourseMatchResponses findCourseResult(MatchRequest matchRequest) {
+        List<DisabledCourse> filteredCourses = filterMatchCourses(matchRequest);
+
+        if(filteredCourses.isEmpty()){
             throw new CustomException(ErrorCode.COURSE_NOT_FOUND);
         }
-        return new CourseMatchResponses(disabledCourses.stream().map(CourseMatchResponse::new).toList());
+        return new CourseMatchResponses(filteredCourses.stream().map(CourseMatchResponse::new).toList());
     }
 }
