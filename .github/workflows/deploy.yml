@@ -7,9 +7,9 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: ewhathon-github-actions-s3-bucket
-  CODE_DEPLOY_APPLICATION_NAME: ewhathon-codedeploy-app
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ewhathon-codedeploy-deployment-group
+  S3_BUCKET_NAME: doumbaeum-github-actions-s3-bucket
+  CODE_DEPLOY_APPLICATION_NAME: doumbaeum-codedeploy-application
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: doumbaeum-deployment-group
   APPLICATION: ${{ secrets.APPLICATION }}
 
 jobs:
