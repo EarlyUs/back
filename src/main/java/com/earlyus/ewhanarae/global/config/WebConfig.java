@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry
                 .addMapping("/**")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000", "http://localhost:5173", "https://earlyus-front.vercel.app")
+                .allowedOrigins("*")
                 .allowedMethods("*");
     }
 }
